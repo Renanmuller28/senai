@@ -15,3 +15,9 @@ Ano: 1968
 Diretor: Stanley Kubrick
 Gênero: Ficção Cientifica
 Duração: 142 minutos
+
+Título: Shrek
+Ano: 2001
+Diretor: Teste
+Gênero: Filme
+Duração: 90 minutos
