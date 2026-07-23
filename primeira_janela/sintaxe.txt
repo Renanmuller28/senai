@@ -1,0 +1,5 @@
+# Sintaxe geral
+widget = WidgetName(root, **kw)
+- root -> a janela pai onde os widget serao inseridos
+- argumentos de configuração
+- pack -. posiciona o widget dentro da janela pai 
