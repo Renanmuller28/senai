@@ -1,0 +1,18 @@
+import tkinter as tk
+from tkinter import messagebox
+
+root = tk.Tk()
+root.geometry('1200x800')
+
+def button_command():
+    nome = entry.get()
+    messagebox.showinfo('nome completo', nome)
+
+label = tk.Label(root, text='digite seu nome completo:')
+entry = tk.Entry(root)
+button=tk.Button(root,text="mostrar", command=button_command)
+label.pack()
+entry.pack()
+button.pack()
+
+root.mainloop()
