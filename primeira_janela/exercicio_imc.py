@@ -17,6 +17,7 @@ def calculo():
 
     # Imprime na tela o resultado
     messagebox.showinfo('Seu IMC', f"{imc:.2f}") # Formata com duas casas decimais
+    
 
 # Criação dos elementos da tela
 label_peso = tk.Label(root, text='Digite seu peso(KG)')
