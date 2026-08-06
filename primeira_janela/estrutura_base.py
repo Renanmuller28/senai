@@ -17,7 +17,7 @@ font=('helvertica',30))
 
 label_3.pack(expand=True)
 
-minha_imagem= tk.PhotoImage(fil='gremio.jpg')
+minha_imagem= tk.PhotoImage(fil='profile.png')
 
 label = tk.Label(root, image=minha_imagem)
 label.pack(expand=True)
