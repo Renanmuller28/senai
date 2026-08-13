@@ -66,7 +66,15 @@ app_empate.place(x=0 , y=95)
 
 icone_pedra = Image.open("./imagens/pedra.png")
 icone_pedra = icone_pedra.resize((50,50),Image.Resampling.LANCZOS)
-icone_pedra = Image.tk
+icone_pedra = Image.Tk.PhotoImage(icone_pedra)
+bnt_pedra = Button(frame_baixo, width=50, height=50,
+                   image=icone_pedra, bg=cor0, fg=cor0,
+                   compund="center",font=("ivy 10 bold"),
+                   anchor="center", relief="flat")
+bnt_pedra.place(x=15, y=60)
+
+icone_papel = Image.open("./image/papel.png")
+
 
 
 janela.mainloop()
