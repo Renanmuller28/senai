@@ -1,7 +1,9 @@
 from tkinter import *
 from tkinter import ttk
+from tkinter import messagebox
 import random
 from PIL import Image, ImageTk
+import sys
 
 cor0= "#FFFFFF"
 cor1= "#333333"
@@ -10,10 +12,6 @@ cor3= "#fff873"
 cor4= "#34eb3d"
 cor5= "#e85151"
 fundo= "#3d3b3b"
-
-
-
-
 
 janela= Tk()
 janela.title("Pedra,papel,tesoura")
@@ -26,51 +24,43 @@ frame_cima.grid(row=0, column=0, sticky=NW)
 frame_baixo = Frame (janela, width=260, height=300,bg=cor0, relief="flat")
 frame_baixo.grid(row=1, column=0, sticky =NW)
 
-app_pessoa = Label(frame_cima, text="Jogador", height=1, anchor="center",
-                   bg=cor1, fg=cor0 , font=("ivy 10 bold"))
-app_pessoa.place(x=10, y=70)
-
-app_pessoa_linha = Label(frame_cima, text="", height=1, anchor="center",
-                   bg=cor1, fg=cor0 , font=("ivy 10 bold"))
-
-app_pessoa.place(x=0, y=0)
-
-
-
-app_vs = Label(frame_cima, text=":", height=1, anchor="center",
-                   bg=cor1, fg=cor0 , font=("ivy 30 bold"))
-
-app_vs.place(x=125, y=20)
-
-app_pessoa_pontos = Label(frame_cima, text="0", height=1, anchor="center",
-                   bg=cor1, fg=cor0 , font=("ivy 30 bold"))
-
-app_pessoa_pontos.place(x=50, y=20)
-
-app_pc = Label(frame_cima, text="PC", height=1,anchor="center", bg=cor1,fg=cor0, font =("ivy 10 bold"))
-app_pc.place(x=205 , y=70)
-
-
-app_pc_linha = Label(frame_cima, text="", height=1,anchor="center", bg=cor1,fg=cor0, font =("ivy 10 bold"))
-app_pc_linha.place(x=255 , y=0)
-
-app_pc_pontos = Label(frame_cima, text="0", height=1,anchor="center", bg=cor1,fg=cor0, font =("ivy 30 bold"))
-app_pc_pontos.place(x=170 , y=20)
-
-app_empate = Label(frame_cima, text="", width=255,anchor="center", bg=cor3,fg=cor0, font =("ivy 1 bold"))
-app_empate.place(x=0 , y=95)
 
 global escolha_pessoa
 global escolha_pc
-global pontos_pesso
+global pontos_pessoa
 global rodadas
 pontos_pessoa = 0
 pontos_pc =0 
 rodadas = 5
 
-
 def terminar_jogo():
-    pass
+    messagebox.showinfo("FINAL DE JOGO", f"JOGADOR: {pontos_pessoa} x PC: {pontos_pc}", icon="info")
+    sys.exit(1)
+def testa_empate(escolha_pessoa,escolha_pc):
+    if escolha_pc==escolha_pessoa:
+        return True
+
+    return False
+
+def testa_vitoria_pessoa(escolha_pessoa,escolha_pc):
+    if escolha_pessoa == "pedra" and escolha_pc == "tesoura":
+        return True
+    if escolha_pessoa == "tesoura" and escolha_pc == "papel":
+        return True
+    if escolha_pessoa == "papel" and escolha_pc == "pedra":
+        return True
+    return False
+
+def testa_vitoria_pc(escolha_pessoa,escolha_pc):
+    if escolha_pc == "pedra" and escolha_pessoa == "tesoura":
+            return True
+    if escolha_pc == "tesoura" and escolha_pessoa == "papel":
+        return True
+    if escolha_pc == "papel" and escolha_pessoa == "pedra":
+        return True
+    return False
+
+
 def jogar(jogada):
     global pontos_pessoa
     global pontos_pc
@@ -84,26 +74,22 @@ def jogar(jogada):
         print(rodadas)
         escolha_pc = random.choice(opcoes)
         escolha_pessoa = jogada
-        print(escolha_pessoa ["text"], escolha_pc)
+        print(escolha_pessoa, escolha_pc)
         rodadas -= 1
 
-    if  testa_empate(escolha_pessoa, escolha_pc):
-        app_empate["bg"] = cor3
-    elif testa_vitoria_pessoa(escolha_pessoa, escolha_pc):
-        pontos_pessoa +=10
-        app_pessoa_linha["bg"] = cor4
-    elif testa_vitoria_pc(escolha_pessoa, escolha_pc):
-        pontos_pc += 10
-        app_pc_linha["bg"] = cor4
-
-
-
-
-
+        if  testa_empate(escolha_pessoa, escolha_pc):
+            app_empate["bg"] = cor3
+        elif testa_vitoria_pessoa(escolha_pessoa, escolha_pc):
+            pontos_pessoa +=10
+            app_pessoa_pontos["text"] = pontos_pessoa
+            app_pessoa_linha["bg"] = cor4
+        elif testa_vitoria_pc(escolha_pessoa, escolha_pc):
+            pontos_pc += 10
+            app_pc_pontos["text"] = pontos_pc
+            app_pc_linha["bg"] = cor4
 
     else:
         terminar_jogo()
-
 
 
 def iniciar_jogo():
@@ -153,12 +139,54 @@ bnt_iniciar = Button(frame_baixo, width=30, height=2,
 
 bnt_iniciar.place(x=5, y=130)
 
-app_jogada_pc = Label(frame_baixo, text="", heigt=1,anchor="center",bg=cor0, fg=cor1, font=("ivy 10 bold"))
+app_jogada_pc = Label(frame_baixo, text="", height=1,anchor="center",bg=cor0, fg=cor1, font=("ivy 10 bold"))
 app_jogada_pc.place(x=190,y=10)
 
-app_jogada_pessoa = Label(frame_baixo,text="",height=1,anchor="center",bg=cor,fg=cor1, font=("ivy 10 bold"))
+app_jogada_pessoa = Label(frame_baixo,text="",height=1,anchor="center",bg=cor0,fg=cor1, font=("ivy 10 bold"))
 app_jogada_pessoa.place(x=10,y=10)
 
-app_vencedor = (frame_baixo,text="", height=1,)
+#app_vencedor = (frame_baixo,text="", height=1,)
 terminar_jogo
+
+
+
+
+app_pessoa = Label(frame_cima, text="Jogador", height=1, anchor="center",
+                   bg=cor1, fg=cor0 , font=("ivy 10 bold"))
+app_pessoa.place(x=10, y=70)
+
+app_pessoa_linha = Label(frame_cima, text="", height=1, anchor="center",
+                   bg=cor1, fg=cor0 , font=("ivy 10 bold"))
+
+app_pessoa.place(x=0, y=0)
+
+
+
+app_vs = Label(frame_cima, text=":", height=1, anchor="center",
+                   bg=cor1, fg=cor0 , font=("ivy 30 bold"))
+
+app_vs.place(x=125, y=20)
+
+app_pessoa_pontos = Label(frame_cima, text="0", height=1, anchor="center",
+                   bg=cor1, fg=cor0 , font=("ivy 30 bold"))
+
+app_pessoa_pontos.place(x=50, y=20)
+
+app_pc = Label(frame_cima, text="PC", height=1,anchor="center", bg=cor1,fg=cor0, font =("ivy 10 bold"))
+app_pc.place(x=205 , y=70)
+
+
+app_pc_linha = Label(frame_cima, text="", height=1,anchor="center", bg=cor1,fg=cor0, font =("ivy 10 bold"))
+app_pc_linha.place(x=255 , y=0)
+
+app_pc_pontos = Label(frame_cima, text="0", height=1,anchor="center", bg=cor1,fg=cor0, font =("ivy 30 bold"))
+app_pc_pontos.place(x=170 , y=20)
+
+app_empate = Label(frame_cima, text="", width=255,anchor="center", bg=cor3,fg=cor0, font =("ivy 1 bold"))
+app_empate.place(x=0 , y=95)
+
+
+
+
+
 janela.mainloop()
